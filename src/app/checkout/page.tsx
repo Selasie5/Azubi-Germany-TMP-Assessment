@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useCart } from "@/app/context/global/cartContex";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useSession, signIn } from "next-auth/react";
 
 // Extend the Window interface to include PaystackPop
 declare global {
@@ -15,6 +16,7 @@ declare global {
 const PAYSTACK_PUBLIC_KEY = "pk_test_a9c8320ce8cda1b9b5439912f54c19df790be487";
 
 export default function CheckoutPage() {
+  const { data: session, status } = useSession();
   const { cart, updateQuantity, removeFromCart, clearCart } = useCart();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -37,8 +39,8 @@ export default function CheckoutPage() {
     const handler = window.PaystackPop && window.PaystackPop.setup({
       key: PAYSTACK_PUBLIC_KEY,
       email,
-      amount: grandTotal * 100, // Paystack expects amount in kobo
-      currency: "USD",
+      amount: grandTotal * 100, // Paystack expects amount in kobo/pesewas
+      currency: "GHS",
       callback: function(response: any) {
         setShowModal(true);
         clearCart();
@@ -61,6 +63,25 @@ export default function CheckoutPage() {
     }
   }, []);
 
+  // If not authenticated, show sign-in prompt
+  if (status === "loading") {
+    return <main className="max-w-4xl mx-auto p-8"><p>Loading...</p></main>;
+  }
+  if (!session) {
+    return (
+      <main className="max-w-4xl mx-auto p-8 text-center">
+        <h1 className="text-3xl font-bold mb-4">Sign In Required</h1>
+        <p className="mb-6">You must be signed in to proceed to checkout.</p>
+        <button
+          className="bg-orange-500 text-white px-6 py-2 rounded font-bold"
+          onClick={() => signIn()}
+        >
+          Sign In
+        </button>
+      </main>
+    );
+  }
+
   return (
     <main className="max-w-4xl mx-auto p-8">
       <h1 className="text-3xl font-bold mb-8">Checkout</h1>
@@ -76,7 +97,7 @@ export default function CheckoutPage() {
                   <Image src={item.image} alt={item.name} width={60} height={60} className="rounded" />
                   <div className="flex-1">
                     <div className="font-semibold">{item.name}</div>
-                    <div className="text-gray-500">${item.price} x {item.quantity}</div>
+                    <div className="text-gray-500">₵{item.price} x {item.quantity}</div>
                   </div>
                   <div className="flex items-center gap-2">
                     <button onClick={() => updateQuantity(item.slug, item.quantity - 1)} disabled={item.quantity <= 1} className="px-2 py-1 bg-gray-200 rounded">-</button>
@@ -88,10 +109,10 @@ export default function CheckoutPage() {
               ))}
             </ul>
           )}
-          <div className="mt-6 text-right font-bold text-lg">Product Total: ${productTotal.toLocaleString()}</div>
-          <div className="text-right text-md">Shipping: ${shipping}</div>
-          <div className="text-right text-md">VAT (20%): ${vat.toLocaleString()}</div>
-          <div className="mt-2 text-right font-bold text-xl">Grand Total: ${grandTotal.toLocaleString()}</div>
+          <div className="mt-6 text-right font-bold text-lg">Product Total: ₵{productTotal.toLocaleString()}</div>
+          <div className="text-right text-md">Shipping: ₵{shipping}</div>
+          <div className="text-right text-md">VAT (20%): ₵{vat.toLocaleString()}</div>
+          <div className="mt-2 text-right font-bold text-xl">Grand Total: ₵{grandTotal.toLocaleString()}</div>
         </div>
         <form className="w-full md:w-1/3 bg-gray-100 p-6 rounded" onSubmit={handlePaystack}>
           <h2 className="text-xl font-semibold mb-4">Shipping Info</h2>
@@ -112,14 +133,14 @@ export default function CheckoutPage() {
               {cart.map(item => (
                 <li key={item.slug} className="flex justify-between mb-2">
                   <span>{item.name} x {item.quantity}</span>
-                  <span>${(item.price * item.quantity).toLocaleString()}</span>
+                  <span>₵{(item.price * item.quantity).toLocaleString()}</span>
                 </li>
               ))}
             </ul>
-            <div className="mb-2">Product Total: ${productTotal.toLocaleString()}</div>
-            <div className="mb-2">Shipping: ${shipping}</div>
-            <div className="mb-2">VAT (20%): ${vat.toLocaleString()}</div>
-            <div className="font-bold text-lg mb-4">Grand Total: ${grandTotal.toLocaleString()}</div>
+            <div className="mb-2">Product Total: ₵{productTotal.toLocaleString()}</div>
+            <div className="mb-2">Shipping: ₵{shipping}</div>
+            <div className="mb-2">VAT (20%): ₵{vat.toLocaleString()}</div>
+            <div className="font-bold text-lg mb-4">Grand Total: ₵{grandTotal.toLocaleString()}</div>
             <button className="bg-orange-500 text-white px-6 py-2 rounded font-bold" onClick={() => setShowModal(false)}>Close</button>
           </div>
         </div>
