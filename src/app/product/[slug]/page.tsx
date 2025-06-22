@@ -8,19 +8,17 @@ import CategoriesSection from "@/app/components/CategoriesSection";
 import AboutSection from "@/app/components/AboutSection";
 
 export async function generateStaticParams() {
-  return Promise.resolve(products.map((product: any) => ({ slug: product.slug })));
+  return products.map((product: any) => ({ slug: product.slug }));
 }
 
-// type Props = {
-//   params: { slug: string }
-//   searchParams?: { [key: string]: string | string[] }
-// };
-
+// Use Next.js's built-in typing instead of custom Props type
 type Include = {
   quantity:number;
   item:string;
 }
-export default async function Page({ params }: { params: { slug: string } }) {
+
+// Use standard function parameter format
+export default function Page({ params }: { params: { slug: string } }) {
   const product = getProductsBySlug(params.slug);
 
   if (!product) {
