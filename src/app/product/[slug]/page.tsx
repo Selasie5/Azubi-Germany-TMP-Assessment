@@ -11,10 +11,10 @@ export async function generateStaticParams() {
   return Promise.resolve(products.map((product: any) => ({ slug: product.slug })));
 }
 
-type Props = {
-  params: { slug: string }
-  searchParams?: { [key: string]: string | string[] }
-};
+// type Props = {
+//   params: { slug: string }
+//   searchParams?: { [key: string]: string | string[] }
+// };
 
 type Include = {
   quantity:number;
