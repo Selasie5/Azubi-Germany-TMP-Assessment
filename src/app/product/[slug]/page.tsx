@@ -8,8 +8,7 @@ import CategoriesSection from "@/app/components/CategoriesSection";
 import AboutSection from "@/app/components/AboutSection";
 
 export async function generateStaticParams() {
-  // @ts-ignore
-  return products.map((product: any) => ({ slug: product.slug }));
+return products.map((product: any) => ({ slug: product.slug }));
 }
 
 type Props = {

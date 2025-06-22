@@ -2,11 +2,12 @@
 import React, { useState } from "react";
 import { useCart } from "@/app/context/global/cartContex";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+
 import { useSession, signIn } from "next-auth/react";
 
 // Extend the Window interface to include PaystackPop
 declare global {
+  // @ts-ignore
   interface Window {
     PaystackPop?: any;
   }
