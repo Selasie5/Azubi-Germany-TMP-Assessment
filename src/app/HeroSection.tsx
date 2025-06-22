@@ -12,7 +12,7 @@ const HeroSection = () => {
       <p className="font-light text-md">
         Experience natural lifelike audio and exceptional build quality made for the passionate music enthusiast
       </p>
-      <Button bgColor="bg-orange-300" textColor="text-white" label="SEE PRODUCT"/>
+      <Button bgColor="bg-orange-300" textColor="text-white" label="SEE PRODUCT" href='product/xx99-mark-two-headphones'/>
   </div>
 </section>
   )
