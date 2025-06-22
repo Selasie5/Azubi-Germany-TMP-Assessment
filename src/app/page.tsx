@@ -40,7 +40,7 @@ export default function Home() {
   <div className="flex flex-row w-full h-full">
     <div className="w-1/2 flex flex-col justify-center items-start px-20 gap-10">
       <h3 className="uppercase text-2xl font-medium">ZX7 Speaker</h3>
-      <Button textColor="text-black" bgColor="bg-transparent border-2 font-medium border-black " label="SEE PRODUCT"/>
+      <Button textColor="text-black" bgColor="bg-transparent border-2 font-medium border-black " label="SEE PRODUCT" href="/product/zx7-speaker"/>
     </div>
     <div className="w-1/2 h-full">
       <Image src="/home/image-speaker-zx7.jpg" width={500} height={500} alt="speaker-zx7" className="w-full h-full object-cover" />
