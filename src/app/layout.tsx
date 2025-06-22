@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Manrope} from "next/font/google";
 import "./globals.css";
 import Navbar from "./components/Navbar";
+import AppProviders from "./AppProviders";
 
 const manrope = Manrope({
   variable: "--font-geist-sans",
@@ -25,11 +26,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${manrope.className} antialiased`}
-      >
-        <Navbar/>
-        {children}
+      <body className={`${manrope.className} antialiased`}>
+        <AppProviders>
+          {children}
+        </AppProviders>
       </body>
     </html>
   );

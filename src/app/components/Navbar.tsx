@@ -1,8 +1,14 @@
+"use client";
+
 import { it } from 'node:test'
 import React from 'react'
 import Link from 'next/link'
 import { ShoppingCartIcon } from '@heroicons/react/24/outline'
+import { useCart } from "@/app/context/global/cartContex";
+
 const Navbar = () => {
+  const { cart } = useCart();
+  const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 
   const navbarItems = [
     { name: 'Home', href: '/' },
@@ -22,9 +28,14 @@ const Navbar = () => {
           </Link>
         ))}
       </div>
-      <div>
-        <ShoppingCartIcon className=' size-6 text-white text-3xl'/>
-      </div>
+      <Link href="/checkout" className='relative'>
+        <ShoppingCartIcon className='size-6 text-white text-3xl' />
+        {cartCount > 0 && (
+          <span className="absolute -top-2 -right-2 bg-orange-500 text-white text-xs rounded-full px-2 py-0.5 font-bold">
+            {cartCount}
+          </span>
+        )}
+      </Link>
     </nav>
   )
 }

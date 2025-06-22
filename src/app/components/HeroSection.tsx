@@ -1,5 +1,5 @@
 import React from 'react'
-import Button from './components/ui/core/Button'
+import Button from '@/app/components/ui/core/Button'
 const HeroSection = () => {
   return (
    <section

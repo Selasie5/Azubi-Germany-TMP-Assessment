@@ -1,9 +1,10 @@
-import Button from "./components/ui/core/Button";
-import Category from "./components/ui/core/CategoryCard";
+import Button from "@/app/components/ui/core/Button";
+import Category from "@/app/components/ui/core/CategoryCard";
 import { categories } from "./data";
 import Image from "next/image";
-import HeroSection from "./HeroSection";
-import CategoriesSection from "./components/CategoriesSection";
+import HeroSection from "@/app/components/HeroSection";
+import CategoriesSection from "@/app/components/CategoriesSection";
+import AboutSection from "./components/AboutSection";
 export default function Home() {
 
     return (
@@ -57,22 +58,8 @@ export default function Home() {
     <Button textColor="text-black" bgColor="bg-transparent border-2 font-medium border-black " label="SEE PRODUCT"/>
   </div>
 </section>
+<AboutSection/>
 
-<section className="w-full flex justify-between items-center  gap-60 mt-30">
-<div className="w-1/2">
-<h2 className="uppercase text-3xl font-semibold text-left">
-Bringing you the best 
-<span className="text-orange-500">audio</span>{" "}
- gear
-</h2>
-<p className="text-gray-700 text-md mt-5">
-  Located at the heart of New York City, Audiophile is the premier store for high end headphones, earphones, speakers, and audio accessories. We have a large showroom and luxury demonstration rooms available for you to browse and experience a wide range of our products. Stop by our store to meet some of the fantastic people who make Audiophile the best place to buy your portable audio equipment.
-</p>
-</div>
-<div className="w-1/2">
-<Image src="/home/image-best-gear.jpg" width={450} height={300} alt="best-gear" className=" rounded-lg" />
-</div>
-</section>
 </section>
 
 
