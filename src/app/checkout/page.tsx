@@ -23,7 +23,7 @@ export default function CheckoutPage() {
   const [address, setAddress] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [paying, setPaying] = useState(false);
-  const router = useRouter();
+  // const router = useRouter();
 
   const productTotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
   const shipping = 50;
@@ -35,13 +35,12 @@ export default function CheckoutPage() {
     e.preventDefault();
     if (!email) return alert("Email is required for payment");
     setPaying(true);
-    // @ts-ignore
     const handler = window.PaystackPop && window.PaystackPop.setup({
       key: PAYSTACK_PUBLIC_KEY,
       email,
       amount: grandTotal * 100, // Paystack expects amount in kobo/pesewas
       currency: "GHS",
-      callback: function(response: any) {
+      callback: function() {
         setShowModal(true);
         clearCart();
         setPaying(false);

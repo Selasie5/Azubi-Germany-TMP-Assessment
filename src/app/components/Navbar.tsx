@@ -1,6 +1,5 @@
 "use client";
 
-import { it } from 'node:test'
 import React from 'react'
 import Link from 'next/link'
 import { ShoppingCartIcon } from '@heroicons/react/24/outline'

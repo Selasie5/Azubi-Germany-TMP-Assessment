@@ -8,7 +8,7 @@ import CategoriesSection from "@/app/components/CategoriesSection";
 import AboutSection from "@/app/components/AboutSection";
 
 export async function generateStaticParams() {
-  
+  // @ts-ignore
   return products.map((product: any) => ({ slug: product.slug }));
 }
 
@@ -96,6 +96,7 @@ export default async function Page({ params }: Props) {
                       <h2 className="uppercase text-2xl tracking-wide font-bold">You May Also Like</h2>
         {product.others && product.others.length > 0 ? (
           <div className="fw-full flex flex-wrap justify-center items-center gap-30">
+            {/* @ts-ignore */}
             {product.others.map((other: any) => (
               <div key={other.slug} className="w-1/4 p-4= rounded-lg flex flex-col justify-center items-center gap-5">
                 <Image
