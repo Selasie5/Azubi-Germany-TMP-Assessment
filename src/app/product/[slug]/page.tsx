@@ -8,20 +8,19 @@ import CategoriesSection from "@/app/components/CategoriesSection";
 import AboutSection from "@/app/components/AboutSection";
 
 export async function generateStaticParams() {
-return products.map((product: any) => ({ slug: product.slug }));
+  return Promise.resolve(products.map((product: any) => ({ slug: product.slug })));
 }
 
 type Props = {
-  params: {
-    slug: string;
-  };
+  params: { slug: string }
+  searchParams?: { [key: string]: string | string[] }
 };
 
 type Include = {
   quantity:number;
   item:string;
 }
-export default async function Page({ params }: Props) {
+export default async function Page({ params }: { params: { slug: string } }) {
   const product = getProductsBySlug(params.slug);
 
   if (!product) {
